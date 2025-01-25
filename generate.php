@@ -1,5 +1,13 @@
 <?php
 
+// Sync these with index.php.
+$options = [
+	'preload' => [ 1, 0 ],
+	'preload-delay' => [ 0, 1, 2 ],
+	'font-display' => [ 'auto', 'block', 'swap', 'fallback', 'optional' ],
+	'font-delay' => [ 0, 1, 2 ],
+];
+
 function array_cartesian_product( $arrays ) {
 	$result = array();
 	$arrays = array_values($arrays);
@@ -26,14 +34,6 @@ function array_cartesian_product( $arrays ) {
 	
 	return $result;
 }
-
-$options = [
-	'preload' => [ 1, 0 ],
-	'preload-delay' => [ 0, 1, 2 ],
-	'font-display' => [ 'auto', 'block', 'swap', 'fallback', 'optional' ],
-	'font-delay' => [ 0, 1, 2 ],
-];
-
 
 foreach ( $options as $key => $values ) {
 	$options[ $key ] = array_map(
