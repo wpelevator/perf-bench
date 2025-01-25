@@ -13,6 +13,11 @@ $options = [
 			glob( __DIR__ . '/fonts/*' )
 		)
 	],
+	'image-delay' => 0,
+	'image' => [
+		null, // Load the image only if requested.
+		'screenshot.png',
+	]
 ];
 
 foreach ( $options as $key => $expected_options ) {
@@ -39,6 +44,20 @@ if ( $options['font'] ) {
 		header( 'Content-Type: font/woff2' );
 		header( 'Content-Length: ' . filesize( $font_file ) );
 		readfile( $font_file );
+		exit;
+	}
+	
+	http_response_code( 404 );
+	exit;
+}
+
+if ( $options['image'] ) {
+	$image_file = sprintf( '%s/%s', __DIR__, $options['image'] );
+
+	if ( is_readable( $image_file ) ) {
+		header( sprintf( 'Content-Type: image/%s', pathinfo( $image_file, PATHINFO_EXTENSION ) ) );
+		header( 'Content-Length: ' . filesize( $image_file ) );
+		readfile( $image_file );
 		exit;
 	}
 	
@@ -80,6 +99,9 @@ if ( $options['font'] ) {
 		h1, h2, h3, h4, h5, h6 {
 			font-family: "Source Serif Pro", serif;
 		}
+		img {
+			max-width: 100%;
+		}
 	</style>
 </head>
 <body>
@@ -87,18 +109,21 @@ if ( $options['font'] ) {
 	<ul>
 		<li>
 			<a href="?preload=true">Preload</a> 
-			<a href="?preload=true&preload-delay=2">Preload 2s delay</a> 
-			<a href="?preload=true&preload-delay=2&font-delay=2">Preload and font 2s delay</a>
+			<a href="?preload=true&amp;preload-delay=2">Preload 2s delay</a> 
+			<a href="?preload=true&amp;preload-delay=2&amp;font-delay=2">Preload and font 2s delay</a>
 		</li>
 		<li>
 			<a href="?preload=false">No Preload</a>
-			<a href="?preload=false&font-delay=2">Font 2s delay</a> 
+			<a href="?preload=false&amp;font-delay=2">Font 2s delay</a> 
 		</li>
 	</ul>
 	<p>
 		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus pariatur 
 		cupiditate repellendus porro, tempora rerum iusto. Eum blanditiis officia enim 
 		commodi doloremque sit dolores, modi ullam corporis ea eveniet dolore!
+	</p>
+	<p>
+		<img src="?image=screenshot.png&amp;delay=<?php echo $options['image-delay']; ?>" alt="Screenshot of a test" />
 	</p>
 </body>
 </html>
