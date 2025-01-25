@@ -2,6 +2,8 @@
 
 Various performance benchmarks for web technologies.
 
+![Font Preload Benchmark](screenshot.png)
+
 ## Font Preload Benchmark
 
 Start the Server:
