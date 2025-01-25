@@ -97,7 +97,7 @@ if ( $options['image'] ) {
 			font: 22px/1.5 system-ui, sans-serif;
 		}
 		h1, h2, h3, h4, h5, h6 {
-			font-family: "Source Serif Pro", serif;
+			font-family: "Source Serif Pro", sans-serif;
 		}
 		img {
 			max-width: 100%;
