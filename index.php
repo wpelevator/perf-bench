@@ -83,7 +83,7 @@ if ( $options['font'] ) {
 	</style>
 </head>
 <body>
-	<h1>Font <em>Preload</em> Testing</h1>
+	<h1>Font <em>Preload Test 🦫 with a <strong>Really</strong> Long Title to Ensure</em> it is the <strong>Largest Content</strong></h1>
 	<ul>
 		<li>
 			<a href="?preload=true">Preload</a> 
