@@ -1,34 +1,18 @@
 <?php
 
-header( 'Cache-Control: no-store, no-cache, must-revalidate' );
-
-$delay_ms = isset( $_GET['delay'] ) ? min( (int) $_GET['delay'], 10 ) : 0;
-
-if ( $delay_ms ) {
-	sleep( $delay_ms );
-}
-
-$fonts = [
-	'SourceSerif4Variable-Italic.ttf.woff2',
-	'SourceSerif4Variable-Roman.ttf.woff2',
-];
-
-if ( isset( $_GET['font'] ) ) {
-	if ( in_array( $_GET['font'], $fonts ) ) {
-		header( 'Content-Type: font/woff2' );
-		readfile( __DIR__ . '/fonts/' . $_GET['font'] );
-		exit;
-	}
-
-	http_response_code( 404 );
-	exit;
-}
-
 $options = [
+	'delay' => 0,
 	'preload' => false,
 	'preload-delay' => 0,
 	'font-display' => [ 'auto', 'block', 'swap', 'fallback', 'optional' ],
 	'font-delay' => 0,
+	'font' => [
+		null, // Load the font only if requested.
+		...array_map(
+			fn( $font ) => basename( $font ),
+			glob( __DIR__ . '/fonts/*' )
+		)
+	],
 ];
 
 foreach ( $options as $key => $expected_options ) {
@@ -40,6 +24,26 @@ foreach ( $options as $key => $expected_options ) {
 		'integer' => is_numeric( $value ) ? (int) $value : 0,
 		default => null,
 	};
+}
+
+header( 'Cache-Control: no-store, no-cache, must-revalidate' );
+
+if ( $options['delay'] ) {
+	sleep( $options['delay'] );
+}
+
+if ( $options['font'] ) {
+	$font_file = __DIR__ . '/fonts/' . $options['font'];
+
+	if ( is_readable( $font_file ) ) {
+		header( 'Content-Type: font/woff2' );
+		header( 'Content-Length: ' . filesize( $font_file ) );
+		readfile( $font_file );
+		exit;
+	}
+	
+	http_response_code( 404 );
+	exit;
 }
 
 ?>
