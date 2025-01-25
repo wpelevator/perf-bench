@@ -17,14 +17,19 @@ $options = [
 	'image' => [
 		null, // Load the image only if requested.
 		'screenshot.png',
-	]
+	],
+	'js-enable' => true,
+	'js' => false,
+	'js-delay' => 1,
+	'js-async' => false,
+	'js-defer' => false,
 ];
 
 foreach ( $options as $key => $expected_options ) {
 	$value = trim( (string) isset( $_GET[ $key ] ) ? $_GET[ $key ] : '' );
 
 	$options[ $key ] = match ( gettype( $expected_options ) ) {
-		'boolean' => (bool) $value,
+		'boolean' => strlen( $value ) ? (bool) $value : $expected_options,
 		'array' => in_array( $value, $expected_options ) ? $value : current( $expected_options ),
 		'integer' => is_numeric( $value ) ? (int) $value : 0,
 		default => null,
@@ -35,6 +40,12 @@ header( 'Cache-Control: no-store, no-cache, must-revalidate' );
 
 if ( $options['delay'] ) {
 	sleep( $options['delay'] );
+}
+
+if ( $options['js'] ) {
+	header( 'Content-Type: text/javascript' );
+	echo 'console.log("js")';
+	exit;
 }
 
 if ( $options['font'] ) {
@@ -73,8 +84,11 @@ if ( $options['image'] ) {
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Font Preload Testing</title>
 	<?php if ( $options['preload'] ) : ?>
-	<link rel="preload" href="?font=SourceSerif4Variable-Italic.ttf.woff2&delay=<?php echo $options['preload-delay']; ?>" as="font" type="font/woff2" crossorigin />
-	<link rel="preload" href="?font=SourceSerif4Variable-Roman.ttf.woff2&delay=<?php echo $options['preload-delay']; ?>" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="?font=SourceSerif4Variable-Italic.ttf.woff2&amp;delay=<?php echo $options['preload-delay']; ?>" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="?font=SourceSerif4Variable-Roman.ttf.woff2&amp;delay=<?php echo $options['preload-delay']; ?>" as="font" type="font/woff2" crossorigin />
+	<?php endif; ?>
+	<?php if ( $options['js-enable'] ) : ?>
+	<script src="?js=1&amp;delay=<?php echo $options['js-delay']; ?>" <?php echo $options['js-async'] ? 'async' : null; ?> <?php echo $options['js-defer'] ? 'defer' : null; ?>></script>
 	<?php endif; ?>
 	<style>
 		@font-face {
