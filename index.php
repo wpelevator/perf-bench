@@ -85,8 +85,8 @@ if ( $options['image'] ) {
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Font Preload Testing</title>
 	<?php if ( $options['preload'] ) : ?>
-	<link rel="preload" href="?font=SourceSerif4Variable-Italic.ttf.woff2&amp;delay=<?php echo $options['preload-delay']; ?>" as="font" type="font/woff2" crossorigin media="<?php $options['preload-media']; ?>" />
-	<link rel="preload" href="?font=SourceSerif4Variable-Roman.ttf.woff2&amp;delay=<?php echo $options['preload-delay']; ?>" as="font" type="font/woff2" crossorigin media="<?php $options['preload-media']; ?>" />
+	<link rel="preload" href="?font=SourceSerif4Variable-Italic.ttf.woff2&amp;delay=<?php echo $options['preload-delay']; ?>" as="font" type="font/woff2" crossorigin media="<?php echo $options['preload-media']; ?>" />
+	<link rel="preload" href="?font=SourceSerif4Variable-Roman.ttf.woff2&amp;delay=<?php echo $options['preload-delay']; ?>" as="font" type="font/woff2" crossorigin media="<?php echo $options['preload-media']; ?>" />
 	<?php endif; ?>
 	<?php if ( $options['js-enable'] ) : ?>
 	<script src="?js=1&amp;delay=<?php echo $options['js-delay']; ?>" <?php echo $options['js-async'] ? 'async' : null; ?> <?php echo $options['js-defer'] ? 'defer' : null; ?>></script>
