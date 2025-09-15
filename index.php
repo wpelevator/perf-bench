@@ -128,6 +128,11 @@ if ( $options['image'] ) {
 			<a href="?preload=true&amp;preload-delay=2&amp;font-delay=2">Preload and font 2s delay</a>
 		</li>
 		<li>
+			<a href="?preload=true&amp;preload-media=print">Preload with <code>media=print</code></a> 
+			<a href="?preload=true&amp;preload-media=print&amp;preload-delay=2">Preload with <code>media=print</code> and 2s delay</a> 
+			<a href="?preload=true&amp;preload-media=print&amp;preload-delay=2&amp;font-delay=2">Preload with <code>media=print</code> and font 2s delay</a>
+		</li>
+		<li>
 			<a href="?preload=false">No Preload</a>
 			<a href="?preload=false&amp;font-delay=2">Font 2s delay</a> 
 		</li>
