@@ -25,3 +25,7 @@ Run the Web Vitals tests using [WPP Research](https://github.com/GoogleChromeLab
     npm run research benchmark-web-vitals -- --file=../font-preload-urls.txt -n 5 -w mobile -o csv
 
 Note, the test will take a while to complete due to the custom delays in for font preload.
+
+## Credits
+
+Created by [Kaspars](https://kaspars.net).
