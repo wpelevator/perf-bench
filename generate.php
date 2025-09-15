@@ -4,6 +4,7 @@
 $options = [
 	'preload' => [ 1, 0 ],
 	'preload-delay' => [ 0, 1, 2 ],
+	'preload-media' => [ 'all', 'print' ],
 	'font-display' => [ 'auto', 'block', 'swap', 'fallback', 'optional' ],
 	'font-delay' => [ 0, 1, 2 ],
 ];
